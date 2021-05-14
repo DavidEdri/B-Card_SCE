@@ -1,0 +1,12 @@
+node_modules
+dist
+.env.test
+.env.development
+.env.production
+.idea
+deployment
+packages/server/**/public
+packages/web/build
+log
+*.log
+yarn.lock

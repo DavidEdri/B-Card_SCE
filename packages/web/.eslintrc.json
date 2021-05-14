@@ -1,0 +1,49 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "packages/web/tsconfig.json",
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx", ".d.ts"]
+      }
+    }
+  },
+  "extends": [
+    "airbnb-typescript",
+    "airbnb/hooks",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": ["react", "@typescript-eslint"],
+  "rules": {
+    "@typescript-eslint/quotes": ["error", "double"],
+    "@typescript-eslint/no-unused-vars": ["warn", { "args": "none" }],
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "import/prefer-default-export": "off",
+    "no-param-reassign": "off" /* redux toolkit */,
+    "implicit-arrow-linebreak": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-empty": "off",
+    "no-underscore-dangle": "off",
+    "arrow-body-style": ["error", "as-needed"],
+    "react/prop-types": "off" /* using types */,
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-curly-newline": "off",
+    "react/no-array-index-key": "off",
+    "@typescript-eslint/indent": "off",
+    "no-plusplus": "off",
+    "object-curly-newline": "off",
+    "operator-linebreak": "off",
+    "react/jsx-wrap-multilines": "off"
+  }
+}

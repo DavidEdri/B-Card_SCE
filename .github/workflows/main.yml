@@ -1,0 +1,41 @@
+name: Push Container to Heroku
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: echo ${{ secrets.MONGO_URI }} > packages/server/.env.production
+      - run: echo ${{ secrets.JWT_SECRET }} >> packages/server/.env.production
+      - run: echo ${{ secrets.EMAIL_API_KEY }} >> packages/server/.env.production
+      - run: echo "SITE_MAIL = no-reply@mern.com" >> packages/server/.env.production
+      - run: echo "JWT_EXPIRE = 10h" >> packages/server/.env.production
+      - run: echo "SITE_URL = http://b--card.herokuapp.com/" >> packages/server/.env.production
+      - run: echo "PORT = 5000" >> packages/server/.env.production
+      - run: npm install yarn
+      - run: yarn
+      - run: CI=false yarn build
+      - name: Login to Heroku Container registry
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku container:login
+      - name: Deploy
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku container:push -a ${{ secrets.HEROKU_APP_NAME }} web
+      - name: Release
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web
