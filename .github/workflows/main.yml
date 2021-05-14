@@ -17,9 +17,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: echo '${{ secrets.MONGO_URI }}' > packages/server/.env.production
-      - run: echo '${{ secrets.JWT_SECRET }}' >> packages/server/.env.production
-      - run: echo '${{ secrets.EMAIL_API_KEY }}' >> packages/server/.env.production
+      - run: echo 'MONGO_URI = ${{ secrets.MONGO_URI }}' > packages/server/.env.production
+      - run: echo 'JWT_SECRET = ${{ secrets.JWT_SECRET }}' >> packages/server/.env.production
+      - run: echo 'EMAIL_API_KEY =  ${{ secrets.EMAIL_API_KEY }}' >> packages/server/.env.production
       - run: echo 'SITE_MAIL = no-reply@mern.com' >> packages/server/.env.production
       - run: echo 'JWT_EXPIRE = 10h' >> packages/server/.env.production
       - run: echo 'SITE_URL = http://b--card.herokuapp.com/' >> packages/server/.env.production
